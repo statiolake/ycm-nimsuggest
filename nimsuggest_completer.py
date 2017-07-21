@@ -133,7 +133,7 @@ class NimsuggestCompleter(Completer):
         filepath = request_data['filepath']
         linenum = request_data['line_num']
         colnum = request_data['column_num']
-        contents = utils.ToUtf8IfNeeded(
+        contents = utils.ToCppStringCompatible(
             request_data['file_data'][filepath]['contents'])
         return self._Suggest(filepath, linenum, colnum, contents)
 
@@ -168,7 +168,7 @@ class NimsuggestCompleter(Completer):
         return []
 
     def _CreateCompletionData(self, line, contents):
-        skType, name, typeName, filename, linenum, colnum, comment = line.split('\t')[1:]
+        skType, name, typeName, filename, linenum, colnum, comment, dummy1, dummy2 = line.split('\t')[1:]
         longname = name
         if '.' in name:
             name = name.split('.')[-1]
